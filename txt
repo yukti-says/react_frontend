@@ -1,2 +1,4 @@
 git remote add origin https://github.com/yukti-says/react_frontend.git
-git push -u origin main
+git push -u origin mai
+
+react is a library
