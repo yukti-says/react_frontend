@@ -7,18 +7,29 @@ function App() {
 
   const [counter , setCounter] = useState(0)
   const addValue = () => {
-    setCounter(counter +1)
-    console.log("value added",counter);
+    if (counter < 5) {
+      setCounter((prev) => {
+        console.log("value added", prev + 1);
+        return prev + 1;
+      });
+    } else {
+      console.log("Maximum value reached");
+    }
+
     
   }
 
   const removeValue = () => {
-    if (counter === 0) {
-      console.log("can not do this");
-    
+    if (counter > 0) {
+      setCounter(prev => {
+        return prev-1
+      })
+    }
+    else {
+      console.log("can not go beyond this");
       
     }
-   setCounter(counter-1)
+   
     console.log("value removed",counter);
     
   }
