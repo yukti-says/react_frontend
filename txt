@@ -2,3 +2,11 @@ git remote add origin https://github.com/yukti-says/react_frontend.git
 git push -u origin mai
 
 react is a library
+
+why we need hooks?
+
+UI UPDATION
+on variables
+hooks -> special methods
+
+ui updations ko react manage karta h
