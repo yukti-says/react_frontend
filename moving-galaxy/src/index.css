@@ -1,0 +1,63 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Animated gradient background */
+.animated-bg {
+  background: linear-gradient(-45deg, #210918, #3f39f2, #01501e, #33013b);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating glowing orbs */
+.orb {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(100px);
+  animation: float 10s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+  from { transform: translateY(0) translateX(0); }
+  to { transform: translateY(-60px) translateX(60px); }
+}
+
+/* Shimmer gradient text */
+.gradient-text {
+  background: linear-gradient(90deg, #fff, #041360, #0e0928, #a8a4e8);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 5s linear infinite;
+}
+
+@keyframes shine {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+
+/* Star twinkle animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.2; }
+}
+.animate-twinkle {
+  animation: twinkle 3s infinite;
+}
+
+/* Radial gradient helper (if Tailwind doesn't have it by default) */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
