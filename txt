@@ -10,3 +10,7 @@ on variables
 hooks -> special methods
 
 ui updations ko react manage karta h
+
+useCallback : react hook that lets u cache a function defination between re-render
+
+useEffect -> 
