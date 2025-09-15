@@ -6,7 +6,7 @@ react is a library
 why we need hooks?
 
 UI UPDATION
-on variables
+on variables1
 hooks -> special methods
 
 ui updations ko react manage karta h

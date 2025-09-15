@@ -93,7 +93,7 @@ const App = () => {
               defaultChecked={numberAllowed}
               id="numberInput"
               onChange={() => {
-                //? previous value se reverse value kar do
+                //? prev5ious value se reverse value kar do
                 setNumberAllowed((prev) => !prev);
               }}
               type="checkbox"
