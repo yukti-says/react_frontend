@@ -1,11 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState  ,useEffect} from 'react'
 
 const App = () => {
-  const [tasks, setTasks] = useState([]); //? array that holds task objects{id,text,completed}
+ const [tasks, setTasks] = useState(() => {
+   try {
+     const storedTasks = localStorage.getItem("tasks");
+     return storedTasks ? JSON.parse(storedTasks) : [];
+   } catch (error) {
+     console.error("Error reading tasks:", error);
+     return [];
+   }
+ }); //? local storage saving array that holds task objects{id,text,completed}
   const [newTasks, setNewTasks] = useState("")//?current value of the input box should be empty
   
   const [editingId, setEditingId] = useState(null) //? which task is being edited
-  const [eiditingText, setEditingText] = useState("") //? new text while editing
+  const [editingText, setEditingText] = useState("") //? new text while editing
   //* Called when the input value changes.
   //* `event` is the browser event; event.target is the input element.
   //* event.target.value is the current text inside the input.
@@ -45,7 +53,7 @@ const App = () => {
   //*save edit
   function saveEdit(id) {
     setTasks(tasks.map(task =>
-      task.id === id ? { ...task, text: eiditingText } : task
+      task.id === id ? { ...task, text: editingText } : task
     ))
     setEditingId(null) //? stoping edition
     setEditingText("");
@@ -74,6 +82,25 @@ const App = () => {
   function handleDeleteTask(id) {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   }
+//![  LOCAL STORAGE]
+  //* Step 1: Load tasks from localStorage on app start When the app first loads, we check if tasks already exist in localStorage.If yes → restore them.
+  useEffect(() => {
+    try {
+      const storedTasks = localStorage.getItem("tasks");
+      if (storedTasks) {
+        setTasks(JSON.parse(storedTasks));
+      }
+    } catch (error) {
+      console.error("Failed to parse tasks from localStorage:", error);
+    }
+  }, []); //? run only when the app loads
+
+  //* save tasks whenever they change ,when u do add , update , delete ,  or toggle, update the localStorage
+
+  useEffect(() => {
+    localStorage.setItem("tasks",JSON.stringify(tasks))
+  },[tasks])
+
   return (
     <>
       <div className="p-6 max-w-md mx-auto bg-white shadow rounded">
@@ -108,7 +135,7 @@ const App = () => {
                 <div className="flex gap-2 w-full">
                   <input
                     type="text"
-                    value={eiditingText}
+                    value={editingText}
                     onChange={(e) => setEditingText(e.target.value)}
                     className="flex-grow border p-1 rounded"
                   />
