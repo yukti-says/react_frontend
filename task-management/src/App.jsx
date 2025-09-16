@@ -1,9 +1,100 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const App = () => {
+  const [tasks, setTasks] = useState([]); //? array that holds task objects{id,text,completed}
+  const [newTasks, setNewTasks] = useState("")//?current value of the input box should be empty
+  
+  //* Called when the input value changes.
+  //* `event` is the browser event; event.target is the input element.
+  //* event.target.value is the current text inside the input.
+  function handleInputChange(event) {
+    setNewTasks(event.target.value)
+    console.log(event);
+    
+  }
+
+  //* addition a new task
+  function handleAddTask(){
+    //? what if it is empty
+    const text = newTasks.trim();
+    if (text === "") return //?simply return
+  
+    //* creating an object date.now() this gives a simple unique id
+    const task = {
+      id: Date.now(),
+      text: text,
+      completed: false,
+    }
+ 
+    // Use a new array — React notices the new array and rerenders.
+    // Use the *functional form* setTasks(prev => ...) to avoid stale state.
+    setTasks((prevTasks) => [...prevTasks, task]);
+
+    // Clear the input box after adding
+    setNewTasks("");
+  }
+
+  //* Toggle completed state for a task (true <-> false)
+  function handleToggelTask(id) {
+    //? map returns a new array we return a modified copy of the matched tasks
+    setTasks((prevTasks)=>prevTasks.map((task)=>task.id === id?{...task,completed:!task.completed} : task))
+
+
+  }
+
+  //*delete function filtering the task if task.id===id then filter it and store bache hue tasks
+  function handleDeleteTask(id) {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  }
   return (
-    <div>App</div>
-  )
+    <>
+      <div className="p-6 max-w-md mx-auto bg-white shadow rounded">
+        <h1 className="text-2xl font-bold mb-4">To-Do App</h1>
+        <div className="flex gap-2 mb-4">
+          {/*   INPUT ROWS */}
+          <input
+            value={newTasks}
+            className="flex-grow border p-2 rounded"
+            placeholder="Enter Your Tasks"
+            type="text"
+            onChange={handleInputChange} //& will be event=>setNewTask(event.target.value)
+          />
+
+          {/* BUTTON TRIGGERS AND HANDLER */}
+          <button
+            onClick={handleAddTask}
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            Add
+          </button>
+        </div>
+
+        {/* Task list */}
+        <ul>
+          {tasks.map((task) => (
+            <li
+              key={task.id}
+              className="flex justify-between items-center mb-2 p-2 border-b"
+            >
+              {/* Clicking the text toggles completion */}
+              <span
+                onClick={() => handleToggelTask(task.id)}
+                className={`flex-grow cursor-pointer ${
+                  task.completed ? "line-through text-gray-600" : ""
+                }`}
+              >
+                {task.text}
+              </span>
+
+              <button
+                onClick={()=>handleDeleteTask(task.id)}
+                className="ml-2 text-red-500"> ❌</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
 }
 
 export default App
