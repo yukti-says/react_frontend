@@ -4,6 +4,8 @@ const App = () => {
   const [tasks, setTasks] = useState([]); //? array that holds task objects{id,text,completed}
   const [newTasks, setNewTasks] = useState("")//?current value of the input box should be empty
   
+  const [editingId, setEditingId] = useState(null) //? which task is being edited
+  const [eiditingText, setEditingText] = useState("") //? new text while editing
   //* Called when the input value changes.
   //* `event` is the browser event; event.target is the input element.
   //* event.target.value is the current text inside the input.
@@ -14,7 +16,7 @@ const App = () => {
   }
 
   //* addition a new task
-  function handleAddTask(){
+  function handleAddTask() {
     //? what if it is empty
     const text = newTasks.trim();
     if (text === "") return //?simply return
@@ -34,12 +36,38 @@ const App = () => {
     setNewTasks("");
   }
 
+  //*start edition
+  function startEditing(task) {
+    setEditingId(task.id);
+    setEditingText(task.text)
+  }
+
+  //*save edit
+  function saveEdit(id) {
+    setTasks(tasks.map(task =>
+      task.id === id ? { ...task, text: eiditingText } : task
+    ))
+    setEditingId(null) //? stoping edition
+    setEditingText("");
+  }
+
+  //* cancle edit
+  function cancleEdit() {
+    setEditingId(null);
+    setEditingText("");
+  }
+
   //* Toggle completed state for a task (true <-> false)
   function handleToggelTask(id) {
     //? map returns a new array we return a modified copy of the matched tasks
-    setTasks((prevTasks)=>prevTasks.map((task)=>task.id === id?{...task,completed:!task.completed} : task))
 
-
+    // *  {...task,completed:!task.completed} =>  Take everything from task → (id, text, completed).
+    //*  Then override completed with true.
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
   }
 
   //*delete function filtering the task if task.id===id then filter it and store bache hue tasks
@@ -76,19 +104,52 @@ const App = () => {
               key={task.id}
               className="flex justify-between items-center mb-2 p-2 border-b"
             >
-              {/* Clicking the text toggles completion */}
-              <span
-                onClick={() => handleToggelTask(task.id)}
-                className={`flex-grow cursor-pointer ${
-                  task.completed ? "line-through text-gray-600" : ""
-                }`}
-              >
-                {task.text}
-              </span>
-
-              <button
-                onClick={()=>handleDeleteTask(task.id)}
-                className="ml-2 text-red-500"> ❌</button>
+              {editingId === task.id ? (
+                <div className="flex gap-2 w-full">
+                  <input
+                    type="text"
+                    value={eiditingText}
+                    onChange={(e) => setEditingText(e.target.value)}
+                    className="flex-grow border p-1 rounded"
+                  />
+                  <button
+                    className="bg-green-500 text-white px-2 rounded"
+                    onClick={() => saveEdit(task.id)}
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={cancleEdit}
+                    className="bg-gray-400 text-white px-2 rounded"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <span
+                    onClick={() => handleToggelTask(task.id)}
+                    className={`flex-grow cursor-pointer ${
+                      task.completed ? "line-through text-gray-600" : ""
+                    }`}
+                  >
+                    {task.text}
+                  </span>
+                  <button
+                    onClick={() => startEditing(task)}
+                    className="ml-2 text-blue-500"
+                  >
+                    ✏️
+                  </button>
+                  <button
+                    onClick={() => handleDeleteTask(task.id)}
+                    className="ml-2 text-red-500"
+                  >
+                    {" "}
+                    ❌
+                  </button>
+                </>
+              )}
             </li>
           ))}
         </ul>
