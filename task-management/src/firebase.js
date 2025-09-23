@@ -2,15 +2,17 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+
 const firebaseConfig = {
-  apiKey: "AIzaSyAMfCMHBF1enwjxFPq6LIdOKAyadGbb_p0",
-  authDomain: "todo-5fd3e.firebaseapp.com",
-  projectId: "todo-5fd3e",
-  storageBucket: "todo-5fd3e.firebasestorage.app",
-  messagingSenderId: "340603604229",
-  appId: "1:340603604229:web:6cb35b09c31d2752f67b6c",
-  measurementId: "G-S1X913YE6Q",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
+
 
 const app = initializeApp(firebaseConfig);
 
