@@ -1,12 +1,31 @@
-# React + Vite
+# 🎯 Task Management App  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern task management app built with **React + Vite**, featuring:  
+- ✅ State management with React hooks  
+- 💾 Local storage + Firebase backend integration  
+- 🎙️ Voice-controlled task input (SpeechRecognition API)  
+- 🔊 Voice feedback using SpeechSynthesis  
+- ☁️ Deployed on Vercel  
 
-Currently, two official plugins are available:
+🚀 **Live Demo:** [Task Management App](https://react-frontend-6k3640xhx-yukti-sahus-projects.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+### 📌 Tech Stack
+- React + Vite  
+- Firebase  
+- Tailwind CSS  
+- Web Speech API (for voice input & feedback)  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+### ⚡ How It Helped Me Learn
+- Managing states and side effects with `useState` + `useEffect`  
+- Persisting data in localStorage  
+- Integrating Firebase backend  
+- Adding voice features for interactivity  
+- Deploying React apps on Vercel  
+
+---
+
+💡 *Built with passion while exploring React, Firebase, and Voice APIs.*
